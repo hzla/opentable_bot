@@ -17,7 +17,11 @@ class FandangoTools
     end
     movie_list = HTTParty.get(url).parsed_response
     theatre_grouped_movies = group_by_theatre(movie_list)
-    movie_recommendations = pick_best_times(theatre_grouped_movies, start_time) if start_time
+    if start_time
+      movie_recommendations = pick_best_times(theatre_grouped_movies, start_time)
+    else
+      theatre_grouped_movies
+    end
   end
 
   def self.all_movies
