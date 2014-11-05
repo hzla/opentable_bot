@@ -30,7 +30,7 @@ def self.reserve options=nil
 end
 
 def self.cancel restaurant_id, confirmation_id
-	browser = Watir::Browser.new 
+	browser = Watir::Browser.new :phantomjs
 	browser.goto "https://m.opentable.com/reservation/cancelreservation?ConfirmationId=#{confirmation_id}&RestaurantId=#{restaurant_id}"
 end
 
