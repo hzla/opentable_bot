@@ -1,6 +1,6 @@
 class OpentableTools 
 	@@base_reserve_url = "https://m.opentable.com/reservation/details?"
-	attr_accessor :restaurant_id, :date_time, :party_size, :first_name, :last_name, :email, :phone_number, :r_details
+	attr_accessor :restaurant_id, :date_time, :party_size, :first_name, :last_name, :email, :phone_number, :r_details, :browser
 
 def initialize options=nil
 	options = {restaurant_id: 105223, date_time: "11/13/2014 21:30:00", party_size: 2, first_name: "Robert", last_name: "Gustavez", email: "neohzla@gmail.com", phone_number: "4157760400"} if !options
@@ -24,7 +24,8 @@ def reserve options=nil
 	browser.button(value: "Confirm").click
 	sleep 1
 	browser.div(:class => "browser-summary-errors").exists?
-	p browser.url
+	@browser = browser
+	p @browser.url
 end
 
 def self.cancel restaurant_id, confirmation_id
