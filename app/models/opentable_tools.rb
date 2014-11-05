@@ -15,7 +15,7 @@ def initialize options=nil
 end
 
 def reserve options=nil
-	browser = Watir::Browser.new
+	browser = Watir::Browser.new :phantomjs
 	browser.goto(@@base_reserve_url + r_details)
 	browser.text_field(name: "FirstName").set first_name
 	browser.text_field(name: "LastName").set last_name
