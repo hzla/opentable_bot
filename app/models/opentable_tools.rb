@@ -1,32 +1,30 @@
 class OpentableTools 
 	@@base_reserve_url = "https://m.opentable.com/reservation/details?"
+	attr_accessor :restaurant_id, :date_time, :party_size, :first_name, :last_name, :email, :phone_number, :r_details
 
-def initialize
+def initialize options=nil
+	options = {restaurant_id: 105223, date_time: "11/13/2014 21:30:00", party_size: 2, first_name: "Robert", last_name: "Gustavez", email: "neohzla@gmail.com", phone_number: "4157760400"} if !options
+	@restaurant_id = options[:restaurant_id]
+	@date_time = URI.encode(options[:date_time]).gsub('/','%2F').gsub(':','%3A') #11/04/2014 16:00 in local time
+	@party_size = options[:party_size]
+	@first_name = options[:first_name]
+	@last_name = options[:last_name]
+	@email = options[:email]
+	@phone_number = options[:phone_number] || "9499813668"
+	@r_details = "RestaurantID=#{restaurant_id}&Points=100&SecurityID=0&DateTime=#{date_time}&PartySize=#{party_size}&OfferConfirmNumber=0&ChosenOfferId=0&IsMiddleSlot=False&ArePopPoints=False"
 end
 
-
-
-def self.reserve options=nil
-	options = {restaurant_id: 105223, date_time: "11/06/2014 21:30:00", party_size: 2, first_name: "Robert", last_name: "Gustavez", email: "neohzla@gmail.com", phone_number: "4157760400"}
-	restaurant_id = options[:restaurant_id]
-	date_time = URI.encode(options[:date_time]).gsub('/','%2F').gsub(':','%3A') #11/04/2014 16:00 in local time
-	party_size = options[:party_size]
-	first_name = options[:first_name]
-	last_name = options[:last_name]
-	email = options[:email]
-	phone_number = options[:phone_number] || "9499813668"
-	r_details = "RestaurantID=#{restaurant_id}&Points=100&SecurityID=0&DateTime=#{date_time}&PartySize=#{party_size}&OfferConfirmNumber=0&ChosenOfferId=0&IsMiddleSlot=False&ArePopPoints=False"
-
-	switches = '--proxy-server=my.proxy.com:8080'
-
-	browser = Watir::Browser.new :phantomjs
+def reserve options=nil
+	browser = Watir::Browser.new
 	browser.goto(@@base_reserve_url + r_details)
 	browser.text_field(name: "FirstName").set first_name
 	browser.text_field(name: "LastName").set last_name
 	browser.text_field(name: "Email").set email
 	browser.text_field(name: "PhoneNumber").set phone_number
 	browser.button(value: "Confirm").click
-	p browser
+	sleep 1
+	browser.div(:class => "browser-summary-errors").exists?
+	p browser.url
 end
 
 def self.cancel restaurant_id, confirmation_id
@@ -34,9 +32,10 @@ def self.cancel restaurant_id, confirmation_id
 	browser.goto "https://m.opentable.com/reservation/cancelreservation?ConfirmationId=#{confirmation_id}&RestaurantId=#{restaurant_id}"
 end
 
-def self.modify time, date
 
-end
+
+
+
 
 
 

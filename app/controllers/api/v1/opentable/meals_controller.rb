@@ -1,7 +1,7 @@
 class Api::V1::Opentable::MealsController < ApplicationController
 
-  def index
-  
+  def reserve
+    OpentableTools.reserve params
   end
 
 end
