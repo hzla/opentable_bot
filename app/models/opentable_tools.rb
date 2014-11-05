@@ -23,10 +23,10 @@ def self.reserve options=nil
 	browser.goto(@@base_reserve_url + r_details)
 	browser.text_field(name: "FirstName").set first_name
 	browser.text_field(name: "LastName").set last_name
-	p browser
 	browser.text_field(name: "Email").set email
 	browser.text_field(name: "PhoneNumber").set phone_number
 	browser.button(value: "Confirm").click
+	p browser
 end
 
 def self.cancel restaurant_id, confirmation_id
