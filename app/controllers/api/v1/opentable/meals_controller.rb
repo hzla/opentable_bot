@@ -1,4 +1,4 @@
-class Api::V1::Openable::MealsController < ApplicationController
+class Api::V1::Opentable::MealsController < ApplicationController
 
   def index
   
