@@ -9,7 +9,6 @@ class FandangoTools
 
   def self.movie_recs lat, lng, start_time=nil, start_date=nil, radius=nil 
     url = "#{@@base_uri}/movies/showings?lat=#{lat}&lng=#{lng}&api_key=#{@@api_key}"
-
     if start_date
       url += "&startDate=#{start_date}"
     else

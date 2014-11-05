@@ -7,7 +7,8 @@ Rails.application.routes.draw do
         resources :movies
       end
       namespace :opentable do
-      	resources :meals
+      	get '/reserve', to: 'meals#reserve'
+        get '/cancel', to: 'meals#cancel'
       end    
     end
   end
