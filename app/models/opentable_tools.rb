@@ -19,17 +19,18 @@ def self.reserve options=nil
 
 	switches = '--proxy-server=my.proxy.com:8080'
 
-	browser = Watir::Browser.new
+	browser = Watir::Browser.new :phantomjs
 	browser.goto(@@base_reserve_url + r_details)
 	browser.text_field(name: "FirstName").set first_name
 	browser.text_field(name: "LastName").set last_name
+	p browser
 	browser.text_field(name: "Email").set email
 	browser.text_field(name: "PhoneNumber").set phone_number
 	browser.button(value: "Confirm").click
 end
 
 def self.cancel restaurant_id, confirmation_id
-	browser = Watir::Browser.new :phantomjs
+	browser = Watir::Browser.new 
 	browser.goto "https://m.opentable.com/reservation/cancelreservation?ConfirmationId=#{confirmation_id}&RestaurantId=#{restaurant_id}"
 end
 
