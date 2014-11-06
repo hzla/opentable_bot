@@ -1,15 +1,18 @@
 class Api::V1::Opentable::MealsController < ApplicationController
 
   def reserve
-    meal = OpentableTools.new params
+    meal = Opentable.new params
     status = meal.reserve
-    render json {success: status}
+    render json: {success: status}
   end
 
   def cancel
-    meal = OpentableTools.new params
-    meal.cancel params
-    render json {success: true}
+    c_id = params[:c_id]
+    Opentable.cancel Meal.where(confirmation_id: c_id).first
+    render json: {success: true}
+  end
+
+  def modify
   end
 
 end

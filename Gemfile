@@ -30,7 +30,7 @@ gem 'spring',        group: :development
 gem 'dotenv-rails'
 gem 'pry'
 gem 'watir-rails'
-
+gem 'protected_attributes'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
