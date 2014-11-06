@@ -37,7 +37,7 @@ class Opentable
 			browser.text_field(name: "LastName").set last_name
 			browser.text_field(name: "Email").set email
 			browser.text_field(name: "PhoneNumber").set phone_number
-			# browser.button(value: "Confirm").click
+			browser.button(value: "Confirm").click
 			sleep 1
 			if true
 				count += 1
