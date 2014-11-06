@@ -1,11 +1,11 @@
-class Opentable 
+class OpentableTools
 	@@base_reserve_url = "https://m.opentable.com/reservation/details?"
 	attr_accessor :restaurant_id, :date_time, :party_size, :first_name, :last_name, :email, :phone_number, :r_details, :browser, :confirmation_id
 
 	def initialize options=nil
-		options = {restaurant_id: 105223, date_time: "11/13/2014 21:30:00", party_size: 2, first_name: "Robert", last_name: "Gustavez", email: "neohzla@gmail.com", phone_number: "4157760400"} if !options
+		options = {restaurant_id: 105223, date_time: "11%2F13%2F2014%2021%3A30%3A00", party_size: 2, first_name: "Robert", last_name: "Gustavez", email: "neohzla@gmail.com", phone_number: "4157760400"} if !options
 		@restaurant_id = options[:restaurant_id]
-		@date_time = URI.encode(options[:date_time]).gsub('/','%2F').gsub(':','%3A') #11/04/2014 16:00 in local time
+		@date_time = options[:date_time] #11/04/2014 16:00 in local time
 		@party_size = options[:party_size]
 		@first_name = options[:first_name]
 		@last_name = options[:last_name]
@@ -30,14 +30,14 @@ class Opentable
 	def reserve
 		count = 0
 		created = false
-		browser = Watir::Browser.new :phantomjs 
-		until count == 3 || created == true
+		browser = Watir::Browser.new :phantomjs
+		until count == 2 || created == true
 			browser.goto(@@base_reserve_url + r_details)
 			browser.text_field(name: "FirstName").set first_name
 			browser.text_field(name: "LastName").set last_name
 			browser.text_field(name: "Email").set email
 			browser.text_field(name: "PhoneNumber").set phone_number
-			browser.button(value: "Confirm").click
+			#browser.button(value: "Confirm").click
 			sleep 1
 			if true
 				count += 1
@@ -52,7 +52,11 @@ class Opentable
 				end
 			end
 		end
-		created
+		if created
+			created
+		else
+			{url: browser.url }
+		end
 	end
 
 	def modify meal, new_time
