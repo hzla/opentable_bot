@@ -30,7 +30,7 @@ class Opentable
 	def reserve
 		count = 0
 		created = false
-		browser = Watir::Browser.new 
+		browser = Watir::Browser.new :phantomjs 
 		until count == 3 || created == true
 			browser.goto(@@base_reserve_url + r_details)
 			browser.text_field(name: "FirstName").set first_name

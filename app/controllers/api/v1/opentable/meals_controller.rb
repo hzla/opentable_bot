@@ -3,7 +3,7 @@ class Api::V1::Opentable::MealsController < ApplicationController
   def reserve
     meal = Opentable.new params
     status = meal.reserve
-    render json: {success: status}
+    render json: {success: status.to_json}
   end
 
   def cancel
